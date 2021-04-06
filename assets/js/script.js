@@ -3,6 +3,7 @@
 
 // Global variables here
 var rawgKey = 'fa0bb86079354400af9095c66fac353c';
+var ytKey = 'AIzaSyDq8ij9L8lkIiOCCwHMyDrz4-Jf8ljNWVU';
 // Define local storage variable(s)
 
 // object of query types
@@ -41,7 +42,7 @@ var getGames = (query, type, genre) => {
       renderData(response);
     })
     .catch((error) => {
-      console.log(`Failed to fetch from the api with error message of: ${error}`);
+      console.log(`Failed to fetch from the RAWG api with error message of: ${error}`);
     });
 }
 
@@ -53,33 +54,68 @@ var getDetails = (id) => {
       renderDetails(response);
     })
     .catch((error) => {
-      console.log(`Failed to fetch from the api with error message of: ${error}`);
+      console.log(`Failed to fetch from the RAWG api with error message of: ${error}`);
+    });
+}
+
+// function to get youtube data based on search query
+var getYoutube = (query) => {
+  var apiurl = `https://youtube.googleapis.com/youtube/v3/search?part=snippet&q=${query}&key=${ytKey}`;
+  axios.get(apiurl)
+    .then((response) => {
+      renderYoutube(response);
+    })
+    .catch((error) => {
+      console.log(`Failed to fetch from the youtube api with error message of: ${error}`);
+    });
+}
+
+// function to get cheapshark api pricing data by title
+var getPrices = (title) => {
+  var apiurl = `https://www.cheapshark.com/api/1.0/games?title=${title}`;
+  axios.get(apiurl)
+    .then((response) => {
+      renderPricing(response);
+    })
+    .catch((error) => {
+      console.log(`Failed to fetch from the cheapshark api with error message of: ${error}`);
     });
 }
 
 // renderData function
 var renderData = (data) => {
+  console.log(data);
   var games = data.data.results;
-  console.log(games);
+  // console.log(games);
   for (var i = 0; i < games.length; i++) {
     var id = games[i].id;
     var name = games[i].name;
     var rating = games[i].metacritic;
-    console.log(name);
-    console.log(id);
-    console.log(rating);
+    // console.log(name);
+    // console.log(id);
+    // console.log(rating);
   }
 }
 
 var renderDetails = (game) => {
-  console.log(game);
+  // console.log(game);
   var name = game.data.name;
   var description = game.data.description_raw;
   var imageurl = game.data.background_image;
-  console.log(name);
-  console.log(description);
-  console.log(imageurl);
+  // console.log(name);
+  // console.log(description);
+  // console.log(imageurl);
 }
 
+var renderYoutube = (data) => {
+  console.log(data);
+}
+
+var renderPricing = (data) => {
+  console.log(data);
+}
+// getDetails(5679);
+
 getGames('skyrim', 'search');
-getDetails(5679);
+getYoutube('coding');
+getPrices('tetris');
