@@ -109,15 +109,49 @@ var renderDetails = (game) => {
   var description = game.data.description_raw;
   var imageurl = game.data.background_image;
   var platforms = game.data.platforms; // an array of objects, the name will be under .name, there is also a system requirements object within only the data for PC will be filled in, the rest will be empty objects.
+  var platformsString = getNames(platforms);
+  console.log(platformsString);
+
   var genre = game.data.genres; // an array of objects, the name will be under .name
+  var genreString = getNames(genre);
+  console.log(genreString);
+
   var developers = game.data.developers; // an array of objects, the name will be under .name
+  var developersString = getNames(developers);
+  console.log(developersString);
+
   var publishers = game.data.publishers; // an array of objects, the name will be under .name
+  var publishersString = getNames(publishers);
+  console.log(publishersString);
+
   var releaseDate = moment(game.data.released).format('MMM D, YYYY');
 
   var score = game.data.metacritic; // This value might not exist for some of the lesser games
-  var rating = game.data.esrb_rating; //The rating is contained in .name This value might be null
+  if (!score) {
+    score = "No Metacritic Score";
+  }
 
-  var detailDisplay = $(``);
+  var rating = game.data.esrb_rating; //The rating is contained in .name This value might be null
+  if (!rating) {
+    rating = "No ESRB rating";
+  }
+
+  // var detailDisplay = $(`
+  // <img src = "${imageurl}" />
+  // <h2>${name}</h2>
+  // <p>Description:</p>
+  // <p>${description}</p>
+  // <p>Release Date:</p>
+  // <p>${releaseDate}</p>
+  // <p>Platforms:</p>
+  // <p>${platformsString}</p>
+  // <p>Genres:</p>
+  // <p>${genreString}</p>
+  // <p>Developers:</p>
+  // <p>${developersString}</p>
+  // <p>Publishers:</p>
+  // <p>${publishersString}</p>
+  // `);
 }
 
 var renderYoutube = (data) => {
@@ -138,8 +172,19 @@ var renderPricing = (data) => {
   console.log(data);
 }
 
+var getNames = (array) => {
+  var resultString = '';
+  for (var i = 0; i < array.length; i++) {
+    resultString += array[i].name;
+    // if there are more items, add comma and space to the end of the string
+    if (i < array.length - 1) {
+      resultString += ', ';
+    }
+  }
+  return resultString;
+}
 
 // getGames('skyrim', 'search');
-getDetails(290476);
+getDetails(5679);
 // getYoutube('coding');
 // getPrices('tetris');
