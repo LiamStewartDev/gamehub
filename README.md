@@ -20,7 +20,7 @@ Using the following Frameworks and Libraries:
 - [Bulma](https://bulma.io/documentation/) CSS Framework
 - [Axios](https://github.com/axios/axios) Promise based HTTP client for the browser and node.js
 - [Moment.js](https://momentjs.com/docs/) Javascript library that formats time and dates
-- [jQuery](https://api.jquery.com/)
+- [jQuery](https://api.jquery.com/) Javascript library for shortcut functions and easier manipulation of the DOM
 
 ## Deployed Link
 
