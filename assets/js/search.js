@@ -1,5 +1,6 @@
 // grab DOM elements
 var searchButton = $('#search-Button')
+var dropdownMenu = $('#query-dropdown')
 var searchQuery = $('input[name = "searchBar"]');
 
 var goSearch = (event) => {
@@ -14,20 +15,20 @@ var goSearch = (event) => {
   }
 
   // grab our query format from our dropdown select
-  var queryFormat = $(this).find(':selected').val();
+  var queryFormat = dropdownMenu.val();
 
   // grab our genres from the checked buttons
   var genreChecks = $('input:checked');
   var genreArray = [];
   $.each(genreChecks, function() {
-    genreArray.push($(this).val());
+    genreArray.push($(this).attr('name'));
   });
   if(genreArray.length > 0) {
     var genreQuery = genreArray.join(',');
   }
 
   // create our query string
-  var queryString = `./index.html?q=${query}&format=${queryFormat}`;
+  var queryString = `./main.html?q=${query}&format=${queryFormat}`;
   if (genreQuery) {
     queryString += `&genre=${genreQuery}`;
   }
