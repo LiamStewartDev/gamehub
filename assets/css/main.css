@@ -20,11 +20,6 @@
     justify-content: space-between;
 }
 
-.columns {
-    
-
-
-}
 
 body {
     background: linear-gradient(270deg, #6767f8, #ad1f1f);
@@ -38,10 +33,10 @@ body {
     50%{background-position:100% 50%}
     100%{background-position:0% 50%}
 }
-
+/* 
 .BGCOLOR {
 
     background-color: var(--colortype3);
     z-index: 999;
-}
+} */
 
