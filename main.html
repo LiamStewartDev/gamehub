@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css">
+    <title>Gamehub</title>
+</head>
+
+<body>
+    <div class="flex-wrapper">
+        <!-- try refreshing with this, we need to set the whole page content to be a flex container and then have the footer-->
+
+
+
+
+        <nav class="navbar is-dark">
+            <!--logo/brand-->
+            <div class="navbar-brand">
+                <a class="navbar-item">
+                    <img src="./gamehub logo.png" alt="site logo" style="max-height: 60px">
+                </a>
+            </div>
+            <div class="navbar-menu" id="nav-links">
+                <div class="navbar-end">
+                    <a class="navbar-item">Home</a>
+                    <a class="navbar-item">Search History</a>
+                </div>
+            </div>
+        </nav>
+
+
+        <div class="section">
+            <div class="container ml-1">
+                <div class="columns">
+
+                    <div class="column is-one-quarter is-justify-content-left is-4 box mx-4 ">
+                        <h1 class="is-size-1 title"> List of games </h1>
+                        <div class="games-list ">
+                            <ul id="game-list" class="card">
+                                <!--populating list of games from search here-->
+                                <!-- <li class="card-header-title card-radius">1234</li> -->
+
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="column is-one-quarter is-5 box" id="price-list">
+                        <h1 class="is-size-1 title"> Game prices </h1>
+
+                    </div>
+
+                    <div class="column is-half box mx-4">
+                        <div class="" id="game-details">
+                            <h1 class="is-size-1 title"> Game description </h1>
+                        </div>
+                        <div id="youtube-vid" class="card">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="is-flex-grow-1"></div>
+        <!-- if the flex wrapper fix doesn't work then this should basically inflate to push the footer to the bottom of the screen at all times-->
+
+
+        <footer class="BGCOLOR footer is-align-content-center has-background-dark">
+            <!-- align items for vertical control //// not currently doing anything-->
+            <div class="content has-text-centered has-text-white">
+                <p>
+                    <strong class="has-text-white">Gamehub</strong> created by <a
+                        href="https://github.com/LiamStewart8">Liam Stewart</a> | <a
+                        href="https://github.com/AcedYu">Alex Yu</a> |
+                    <a href="https://github.com/TMPeeler">Thomas Peeler</a>
+                </p>
+            </div>
+        </footer>
+
+
+
+
+
+
+
+    </div>
+
+    <!-- js script tags here-->
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+</body>
+
+</html>
