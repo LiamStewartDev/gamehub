@@ -1,0 +1,42 @@
+:root{
+    --colortype1: rgb(103, 103, 248);
+    --colortype2: rgb(173, 31, 31);
+    --colortype3: rgb(49, 43, 43);
+}
+
+
+.footer {
+    /* margin-top: auto; */
+    position: absolute;
+    width: 100%;
+    bottom:0px; 
+    
+
+}   
+.flex-wrapper {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+
+body {
+    background: linear-gradient(270deg, #6767f8, #ad1f1f);
+    background-size: 400% 400%;
+    z-index: -1;
+    animation: AnimationName 30s ease infinite;
+}
+
+@keyframes AnimationName {
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+/* 
+.BGCOLOR {
+
+    background-color: var(--colortype3);
+    z-index: 999;
+} */
+
