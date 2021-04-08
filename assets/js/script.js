@@ -4,6 +4,7 @@ var gameList = $('#game-list');
 var detailScreen = $('#game-details');
 var priceContainer = $('#price-list');
 var videoSlot = $('#youtube-vid');
+var dealsList = $('#deals-list');
 // Global variables here
 var rawgKey = 'fa0bb86079354400af9095c66fac353c';
 var ytKey = 'AIzaSyDq8ij9L8lkIiOCCwHMyDrz4-Jf8ljNWVU';
@@ -15,6 +16,16 @@ var ytKey = 'AIzaSyDq8ij9L8lkIiOCCwHMyDrz4-Jf8ljNWVU';
 stores = ['index 0'];
 var init = () => {
   getStores();
+  searchParamsArray = document.location.search.split('&');
+  var query = searchParamsArray[0].split('=').pop();
+  var format = searchParamsArray[1].split('=').pop();
+  if (searchParamsArray[2]) {
+    var genre = searchParamsArray[2].split('=').pop();
+  }
+  console.log(query);
+  console.log(format);
+  console.log(genre);
+  getGames(query, format, genre);
 }
 
 var queryTypes = {
@@ -42,7 +53,11 @@ var getGenres = (string) => {
 // function to fetch list of games from api
 var getGames = (query, type, genre) => {
   var param = getType(query, type);
-  var genres = getGenres(genre);
+  if (genres) {
+    var genres = getGenres(genre);
+  } else {
+    var genres = '';
+  }
   var apiurl = `https://api.rawg.io/api/games?key=${rawgKey}${param}${genres}`;
   axios.get(apiurl)
     .then((response) => {
@@ -211,34 +226,29 @@ var renderDetails = (game) => {
   </div>
   `);
 
-  // console.log(imageurl);
-  // console.log(name);
-  // console.log(description);
-  // console.log(releaseDate);
-  // console.log(platformsString);
-  // console.log(genreString);
-  // console.log(developersString);
-  // console.log(publishersString);
-  // console.log(score);
-  // console.log(rating);
-
   // append the detailDisplay to the details screen section
   detailScreen.append(detailDisplay);
   getPrices(name);
+  getYoutube(name);
 }
 
 var renderYoutube = (data) => {
-  console.log(data);
+  videoSlot.empty();
   var videos = data.data.items;
-  for (var i = 0; i < videos.length; i++) {
-    var vid = videos[i].id.videoId;
-    var videourl = `https://www.youtube.com/watch?v=${vid}`;
-    var channel = videos[i].snippet.channelTitle;
-    var title = videos[i].snippet.title;
-    // console.log(title);
-    // console.log(channel);
-    // console.log(videourl);
-  }
+  // grab variables
+  var vid = videos[0].id.videoId;
+  var videourl = `https://www.youtube.com/embed/${vid}`;
+  var channel = videos[0].snippet.channelTitle;
+  var title = videos[0].snippet.title;
+  // render data to the screen
+  var youtubeNode = $(`
+  <p>Top Youtube Search Result</p>
+  <p>${title}</p>
+  <p>${channel}</p>
+  <iframe width = "650" height = "315" src = "${videourl}">
+  </iframe>
+  `);
+  videoSlot.append(youtubeNode);
 }
 
 var renderPricing = (data, name) => {
@@ -270,14 +280,14 @@ var renderPricing = (data, name) => {
 }
 
 var renderDeals = (data) => {
-  console.log(data);
-  var deals = data.deals;
-  var dealsList = $('<ul>');
-  for (var i = 0; i < deals; i++) {
+  dealsList.empty();
+  var deals = data.data.deals;
+  for (var i = 0; i < deals.length; i++) {
     var price = deals[i].price;
     var store = stores[deals[i].storeID];
     var dealUrl = `https://www.cheapshark.com/redirect?dealID=${deals[i].dealID}`;
-    var li = $(`<li><a></a></li>`);
+    var li = $(`<li>$${price} at <a href = "${dealUrl}" target = "_blank">${store}</a></li>`);
+    dealsList.append(li);
   }
 }
 
@@ -303,6 +313,4 @@ var getNames = (array) => {
   return resultString;
 }
 
-getGames('skyrim', 'search');
 init();
-// https://www.cheapshark.com/redirect?dealID=0cB8snrNQRgQ7dFFOent0o0l3sC5EUy4D0uQEazVZtA%3D
