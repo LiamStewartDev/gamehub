@@ -258,6 +258,7 @@ var renderYoutube = (data) => {
 
 var renderPricing = (data, name) => {
   priceContainer.empty();
+  dealsList.empty();
   var available = data.data;
   for (var i = 0; i < available.length; i++) {
     if (name === available[i].external) {
