@@ -1,7 +1,9 @@
 // JS here. Change function names based on common sense naming conventions
 // Grab html variables here
-var gameList = $('#gameList');
-var detailScreen = $('#detailScreen');
+var gameList = $('#game-list');
+var detailScreen = $('#game-details');
+var priceContainer = $('#price-list');
+var videoSlot = $('#youtube-vid');
 // Global variables here
 var rawgKey = 'fa0bb86079354400af9095c66fac353c';
 var ytKey = 'AIzaSyDq8ij9L8lkIiOCCwHMyDrz4-Jf8ljNWVU';
@@ -80,27 +82,38 @@ var getPrices = (title) => {
     });
 }
 
+// function to get cheapshark api all deals for a game
+var getDeals = (id) => {
+
+}
+
 // renderData function
 var renderData = (data) => {
   // empty out the list
   // gameList.empty();
 
+  console.log(data);
+
   // define our game data array from the api
   var games = data.data.results;
-  console.log(games);
 
   // for loop to create our list of games
-  // for (var i = 0; i < games.length; i++) {
-  //   var id = games[i].id;
-  //   var name = games[i].name;
-  //   var li = $(`<li gameid = "${id}">${name}</li>`);
-  //   li.on('click', (event) => {
-  //     var target = $(event.target);
-  //     idparam = target.attr('gameid');
-  //     getDetails(idparam);
-  //   });
-  //   gameList.append(li);
-  // }
+  for (var i = 0; i < games.length; i++) {
+    // create each game list item
+    var id = games[i].id;
+    var name = games[i].name;
+    var li = $(`<li gameid = "${id}" class = "card-header-title card-radius">${name}</li>`);
+
+    // add the on click event listener
+    li.on('click', (event) => {
+      var target = $(event.target);
+      idparam = target.attr('gameid');
+      getDetails(idparam);
+    });
+
+    // append each created li onto the gameList
+    // gameList.append(li);
+  }
 }
 
 var renderDetails = (game) => {
@@ -108,21 +121,23 @@ var renderDetails = (game) => {
   var name = game.data.name;
   var description = game.data.description_raw;
   var imageurl = game.data.background_image;
-  var platforms = game.data.platforms; // an array of objects, the name will be under .name, there is also a system requirements object within only the data for PC will be filled in, the rest will be empty objects.
-  var platformsString = getNames(platforms);
-  console.log(platformsString);
+  var platforms = game.data.platforms; // an array of objects, the name will be under .name under the platform object, there is also a system requirements object within only the data for PC will be filled in, the rest will be empty objects.
+  var platformsString = '';
+  for (var i = 0; i < platforms.length; i++) {
+    platformsString += platforms[i].platform.name;
+    if (i < platforms.length - 1) {
+      platformsString += ', ';
+    }
+  }
 
   var genre = game.data.genres; // an array of objects, the name will be under .name
   var genreString = getNames(genre);
-  console.log(genreString);
 
   var developers = game.data.developers; // an array of objects, the name will be under .name
   var developersString = getNames(developers);
-  console.log(developersString);
 
   var publishers = game.data.publishers; // an array of objects, the name will be under .name
   var publishersString = getNames(publishers);
-  console.log(publishersString);
 
   var releaseDate = moment(game.data.released).format('MMM D, YYYY');
 
@@ -134,24 +149,46 @@ var renderDetails = (game) => {
   var rating = game.data.esrb_rating; //The rating is contained in .name This value might be null
   if (!rating) {
     rating = "No ESRB rating";
+  } else {
+    rating = game.data.esrb_rating.name;
   }
 
-  // var detailDisplay = $(`
-  // <img src = "${imageurl}" />
-  // <h2>${name}</h2>
-  // <p>Description:</p>
-  // <p>${description}</p>
-  // <p>Release Date:</p>
-  // <p>${releaseDate}</p>
-  // <p>Platforms:</p>
-  // <p>${platformsString}</p>
-  // <p>Genres:</p>
-  // <p>${genreString}</p>
-  // <p>Developers:</p>
-  // <p>${developersString}</p>
-  // <p>Publishers:</p>
-  // <p>${publishersString}</p>
-  // `);
+  var detailDisplay = $(`
+  <div class = "card">
+    <img src = "${imageurl}" />
+    <h2>${name}</h2>
+    <p>Description:</p>
+    <p>${description}</p>
+    <p>Release Date:</p>
+    <p>${releaseDate}</p>
+    <p>Platforms:</p>
+    <p>${platformsString}</p>
+    <p>Genres:</p>
+    <p>${genreString}</p>
+    <p>Developers:</p>
+    <p>${developersString}</p>
+    <p>Publishers:</p>
+    <p>${publishersString}</p>
+    <p>Metacritic:</p>
+    <p>${score}</p>
+    <p>ESRB Rating:</p>
+    <p>${rating}</p>
+  </div>
+  `);
+
+  console.log(imageurl);
+  console.log(name);
+  console.log(description);
+  console.log(releaseDate);
+  console.log(platformsString);
+  console.log(genreString);
+  console.log(developersString);
+  console.log(publishersString);
+  console.log(score);
+  console.log(rating);
+
+  // append the detailDisplay to the details screen section
+  // detailScreen.append(detailDisplay);
 }
 
 var renderYoutube = (data) => {
@@ -184,7 +221,7 @@ var getNames = (array) => {
   return resultString;
 }
 
-// getGames('skyrim', 'search');
+getGames('skyrim', 'search', 'adventure,rpg');
 getDetails(5679);
 // getYoutube('coding');
-// getPrices('tetris');
+getPrices('The Elder Scrolls V: Skyrim');
