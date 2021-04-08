@@ -5,12 +5,16 @@ var detailScreen = $('#game-details');
 var priceContainer = $('#price-list');
 var videoSlot = $('#youtube-vid');
 var dealsList = $('#deals-list');
+var homebtn = $('#home');
+var historybtn = $('#search-history');
 // Global variables here
 var rawgKey = 'fa0bb86079354400af9095c66fac353c';
 var ytKey = 'AIzaSyDq8ij9L8lkIiOCCwHMyDrz4-Jf8ljNWVU';
 // Define local storage variable(s)
-
-// object of query types
+var historyList = JSON.parse(localStorage.getItem("history"));
+if (!historyList) {
+  historyList = [];
+}
 
 // Define array of stores drawn from cheapshark api
 stores = ['index 0'];
@@ -18,16 +22,15 @@ var init = () => {
   getStores();
   searchParamsArray = document.location.search.split('&');
   var query = searchParamsArray[0].split('=').pop();
+  query = query.replace('%20', ' ');
   var format = searchParamsArray[1].split('=').pop();
   if (searchParamsArray[2]) {
     var genre = searchParamsArray[2].split('=').pop();
   }
-  console.log(query);
-  console.log(format);
-  console.log(genre);
   getGames(query, format, genre);
 }
 
+// object of query types
 var queryTypes = {
   search: '&search=',
   developer: '&developers=',
@@ -145,8 +148,10 @@ var renderData = (data) => {
     // add the on click event listener
     li.on('click', (event) => {
       var target = $(event.target);
-      idparam = target.attr('gameid');
+      var idparam = target.attr('gameid');
+      var nameparam = target.text();
       getDetails(idparam);
+      addHistory(nameparam, idparam);
     });
 
     // append each created li onto the gameList
@@ -312,5 +317,40 @@ var getNames = (array) => {
   }
   return resultString;
 }
+
+var addHistory = (name, id) => {
+  var arrayNode = [name, id];
+  for (var i = 0; i < historyList.length; i++) {
+    if (name === historyList[i][0]) {
+      return;
+    }
+  }
+  historyList.unshift(arrayNode);
+  localStorage.setItem("history", JSON.stringify(historyList));
+}
+
+// Home button on click, send back to index.html page
+homebtn.on('click', ()=> {
+  location.assign('./index.html');
+});
+
+var renderHistory = () => {
+  gameList.empty();
+  for (var i = 0; i < historyList.length; i++) {
+    var name = historyList[i][0];
+    var id = historyList[i][1];
+    var li = $(`<li gameid = "${id}" class = "card-header-title card-radius">${name}</li>`);
+
+    // add the on click event listener
+    li.on('click', (event) => {
+      var target = $(event.target);
+      var idparam = target.attr('gameid');
+      getDetails(idparam);
+    });
+    gameList.append(li);
+  }
+}
+
+historybtn.on('click', renderHistory);
 
 init();
