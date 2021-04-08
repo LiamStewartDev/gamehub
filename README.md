@@ -2,6 +2,10 @@
 This assignment was assigned by the U.C. Berkeley Extension Full-time Full Stack Flex Boot Camp.
 This is the first major collaborative project assigned by the program. In this assignment our team was tasked to create a website that drew on multiple different APIs, used a CSS framework outside of the one we were taught in class, and used a Javascript library that we've never used before in class. The app runs in the browser and features dynamically updated HTML and CSS powered by JavaScript code. It has a clean, polished, and responsive user interface.
 
+![Image](projectpic.png)
+
+Due: Friday, April 9, 2021
+
 ## Built With
 * [HTML](https://developer.mozilla.org/en-US/docs/Web/HTML)
 * [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS)
