@@ -1,1 +1,23 @@
 /* add additional CSS outside of CSS framework */
+
+#vidBackground {
+position: fixed;
+right: 0;
+bottom: 0; 
+top: 0px;
+object-fit: cover;
+width: 100vw;
+height: 100vh;
+z-index: -1;
+
+}
+
+#textTransparent {
+    opacity: 0.7;
+
+}
+
+#boxOpacity {
+
+    opacity: 0.8;
+}

@@ -1,24 +1,146 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8">
-    <!-- add new stylesheets here -->
 
-    <!-- linked stylesheet -->
-    <link rel="stylesheet" href="./assets/css/style.css" />
-    <title>PLACEHOLDER TITLE: PROJECT 1</title>
-  </head>
-  <body>
-    <!-- add body content here -->
+<head>
+  <meta charset="UTF-8">
+  <!-- add new stylesheets here -->
+  <!-- linked stylesheet -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css">
 
-    <!-- initial jquery scripts + moment.js -->
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
-    <!-- add additional third party apis here -->
-    <!-- Axios is another way to make fetch requests, promise based -->
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <!-- linked script.js -->
-    <script src="./assets/js/script.js"></script>
-  </body>
+  <link rel="stylesheet" href="./assets/css/style.css" />
+  <title>Gamehub</title>
+</head>
+
+<body>
+  <!-- add body content here -->
+  <!-- id="vidBackground" -->
+  <video autoplay muted loop id="vidBackground">
+    <source src="./assets/video/cinematic.mp4" type="video/mp4">
+  </video>
+  <section class="hero is-fullheight">
+    <div class="hero-body">
+      <div class="container has-text-centered">
+        <h1 class="has-text-white is-size-1" id="textTransparent">Gamehub </h1>
+        <!-- trying to break down the drop down menu-->
+
+        <div class="box " id="boxOpacity">
+          <div class="column">
+            <div class="columns">
+              <div class="column is-2">
+                <div class="is-inline">
+
+                  <div class="select is-rounded is-link">
+                    <!-- we need a dropdown div, a trigger div, a menu div, and then content div, and then each item needs to be a dropdown item-->
+                    <!-- <div class="dropdown is-hoverable">
+                      <div class="dropdown-trigger">
+                        <div class="dropdown-content"> -->
+                    <!-- <div class="dropdown is-hoverable">
+                      <div class="dropdown-trigger">
+                        <div class="dropdown-content">
+                          <div class="dropdown-menu"> -->
+
+
+
+
+                    <div class="dropdown is-hoverable">
+                      <div class="dropdown-trigger">
+                      <select aria-haspopup="true" aria-controls="dropdown-menu1">
+                        <div class="dropdown-menu" id="dropdown-menu1">
+                        <div class="dropdown-content">
+                        <option class="dropdown-item">Normal Search</option>
+                        <option class="dropdown-item">Developer</option>
+                        <option class="dropdown-item">Publisher</option>
+                      </div>
+                    </div>
+                      </select>
+                    </div>
+                    </div>
+
+
+
+                    
+
+
+
+
+
+
+                    <!-- </div>
+                        </div>
+                      </div>
+                    </div> -->
+                    <!-- </div>
+                      </div>
+                    </div> -->
+                  </div>
+                </div>
+              </div>
+              <!-- trying to break down the search bar-->
+
+
+              <div class="column is-8">
+                <div class="is-inline ">
+                  <input class="input is-link is-rounded" style="width: 90%;" name="searchBar">
+                </div>
+              </div>
+
+
+              <!-- trying to break down the search button-->
+              <div class="column is-2">
+                <div class="is-inline">
+
+                  <button class="button is-rounded is-link" id="search-Button">search</button>
+                  <!--make button -->
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <label class="checkbox">
+            <input type="checkbox" name="Action">
+            Action
+          </label>
+          <label class="checkbox">
+            <input type="checkbox" name="Adventure">
+            Adventure
+          </label>
+          <label class="checkbox">
+            <input type="checkbox" name="Platformer">
+            Platformer
+          </label>
+          <label class="checkbox">
+            <input type="checkbox" name="Puzzle">
+            Puzzle
+          </label>
+          <label class="checkbox">
+            <input type="checkbox" name="Strategy">
+            Strategy
+          </label>
+          <label class="checkbox">
+            <input type="checkbox" name="Sports">
+            Sports
+          </label>
+        </div>
+
+
+      </div>
+    </div>
+    <!-- </div> -->
+  </section>
+
+
+  <!-- initial jquery scripts + moment.js -->
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+  <!-- add additional third party apis here -->
+
+  <!-- linked script.js -->
+  <script src="./assets/js/script.js"></script>
+</body>
+
 </html>
+
+<!--gameList -->
+<!-- detailScreen-->
