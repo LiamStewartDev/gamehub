@@ -16,7 +16,7 @@
 
 
 
-    <nav class="navbar has-shadow is-white">
+    <nav class="navbar">
         <!--logo/brand-->
         <div class="navbar-brand">
             <a class="navbar-item">
@@ -33,19 +33,20 @@
 
 
     <div class="section">
-        <div class="container">
+        <div class="container ml-1">
             <div class="columns ">
 
-                <div class="column is-one-quarter">
+                <div class="column is-one-quarter is-justify-content-left is-4 box mx-4">
                     <h1 class="is-size-1 title"> List of games </h1>
                     <div class="games-list">
-                        <ul id="game-list">
+                        <ul id="game-list" class="card">
                             <!--populating list of games from search here-->
+                            <li class="card-header-title card-radius">1234</li>
+
                         </ul>
                     </div>
                 </div>
-
-                <div class="column is-one-quarter is-5" id="price-list">
+                <div class="column is-one-quarter is-5 box" id="price-list">
                     <h1 class="is-size-1 title"> Game prices </h1>
                     <p>Hello,Hello,Hello,Hello,Hello,Hello,Hello,
                         Hello,Hello,Hello,Hello,Hello,Hello,Hello,
@@ -54,16 +55,25 @@
                     </p>
                 </div>
 
-                <div class="column is-half">
-                    <div class="box" id="game-details">
+                <div class="column is-half box mx-4">
+                    <div class="card" id="game-details">
                         <h1 class="is-size-1 title"> Game description </h1>
                         <p>Hello,Hello,Hello,Hello,Hello,Hello,Hello,
                             Hello,Hello,Hello,Hello,Hello,Hello,Hello,
                             Hello,Hello,Hello,Hello,Hello,Hello,Hello,
                             Hello,Hello,Hello,Hello,Hello,Hello,Hello,
+                            Hello,Hello,Hello,Hello,Hello,Hello,Hello,
+                            Hello,Hello,Hello,Hello,Hello,Hello,Hello,
+                            Hello,Hello,Hello,Hello,Hello,Hello,Hello,
+                            Hello,Hello,Hello,Hello,Hello,Hello,Hello,
+                            Hello,Hello,Hello,Hello,Hello,Hello,Hello,
+                            Hello,Hello,Hello,Hello,Hello,Hello,Hello,
+                            Hello,Hello,Hello,Hello,Hello,Hello,Hello,
                         </p>
                     </div>
-                    <div id="youtube-vid"></div>
+                    <div id="youtube-vid" class="card">
+                        
+                    </div>
                 </div>
             </div>
         </div>
