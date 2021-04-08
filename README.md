@@ -2,6 +2,13 @@
 This assignment was assigned by the U.C. Berkeley Extension Full-time Full Stack Flex Boot Camp.
 This is the first major collaborative project assigned by the program. In this assignment our team was tasked to create a website that drew on multiple different APIs, used a CSS framework outside of the one we were taught in class, and used a Javascript library that we've never used before in class. The app runs in the browser and features dynamically updated HTML and CSS powered by JavaScript code. It has a clean, polished, and responsive user interface.
 
+It contains notable features such as:
+- A searchbar with a connected selector bar and check boxes all used to form the search query
+- Input validation, an empty search bar after submitting will cause the placeholder text within to give the message: "PLEASE ENTER A SEARCH QUERY"
+- A rendered list of games based on the form data given by the user on a new page after pressing the submit button
+- Clickable list items for the rendered game list
+- Renders game details, prices, and a provided youtube video about each list item upon clicking them
+
 ![Image](projectpic.png)
 
 Due: Friday, April 9, 2021
