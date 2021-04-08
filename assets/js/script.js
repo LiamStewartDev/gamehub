@@ -143,7 +143,7 @@ var renderData = (data) => {
     // create each game list item
     var id = games[i].id;
     var name = games[i].name;
-    var li = $(`<li gameid = "${id}" class = "card-header-title card-radius">${name}</li>`);
+    var li = $(`<li gameid = "${id}" class = "card-header-title card-radius button">${name}</li>`);
 
     // add the on click event listener
     li.on('click', (event) => {
@@ -247,7 +247,7 @@ var renderYoutube = (data) => {
   var title = videos[0].snippet.title;
   // render data to the screen
   var youtubeNode = $(`
-  <p>Top Youtube Search Result</p>
+  <h2 class = "is-size-2 title">Top Youtube Search Result</h2>
   <p>${title}</p>
   <p>${channel}</p>
   <iframe width = "650" height = "315" src = "${videourl}">
@@ -275,7 +275,7 @@ var renderPricing = (data, name) => {
     <h3 class = "is-size-3 title">We have deals as low as $${cheapest}!</h3>
     </div>
     `);
-    var button = $(`<button>Show Me the Deals!</button>`);
+    var button = $(`<button class="button is-success has-text-centered">Show Me the Deals!</button>`);
     button.on('click', () => {
       getDeals(sharkid);
     });
@@ -292,7 +292,7 @@ var renderDeals = (data) => {
     var price = deals[i].price;
     var store = stores[deals[i].storeID];
     var dealUrl = `https://www.cheapshark.com/redirect?dealID=${deals[i].dealID}`;
-    var li = $(`<li>$${price} at <a href = "${dealUrl}" target = "_blank">${store}</a></li>`);
+    var li = $(`<li class = "button">$${price} at<a href = "${dealUrl}" target = "_blank">${store}</a></li>`);
     dealsList.append(li);
   }
 }
@@ -337,10 +337,14 @@ homebtn.on('click', ()=> {
 
 var renderHistory = () => {
   gameList.empty();
+  priceContainer.empty();
+  dealsList.empty();
+  detailScreen.empty();
+  videoSlot.empty();
   for (var i = 0; i < historyList.length; i++) {
     var name = historyList[i][0];
     var id = historyList[i][1];
-    var li = $(`<li gameid = "${id}" class = "card-header-title card-radius">${name}</li>`);
+    var li = $(`<li gameid = "${id}" class = "card-header-title card-radius button">${name}</li>`);
 
     // add the on click event listener
     li.on('click', (event) => {
