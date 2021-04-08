@@ -10,6 +10,13 @@ var ytKey = 'AIzaSyDq8ij9L8lkIiOCCwHMyDrz4-Jf8ljNWVU';
 // Define local storage variable(s)
 
 // object of query types
+
+// Define array of stores drawn from cheapshark api
+stores = ['index 0'];
+var init = () => {
+  getStores();
+}
+
 var queryTypes = {
   search: '&search=',
   developer: '&developers=',
@@ -75,7 +82,7 @@ var getPrices = (title) => {
   var apiurl = `https://www.cheapshark.com/api/1.0/games?title=${title}`;
   axios.get(apiurl)
     .then((response) => {
-      renderPricing(response);
+      renderPricing(response, title);
     })
     .catch((error) => {
       console.log(`Failed to fetch from the cheapshark api with error message of: ${error}`);
@@ -84,15 +91,31 @@ var getPrices = (title) => {
 
 // function to get cheapshark api all deals for a game
 var getDeals = (id) => {
+  var apiurl = `https://www.cheapshark.com/api/1.0/games?id=${id}`;
+  axios.get(apiurl)
+    .then((response) => {
+      renderDeals(response);
+    })
+    .catch((error) => {
+      console.log(`Failed to fetch from the cheapshark api with error message of: ${error}`);
+    });
+}
 
+var getStores = () => {
+  var apiurl = 'https://www.cheapshark.com/api/1.0/stores';
+  axios.get(apiurl)
+    .then((response) => {
+      populateStores(response);
+    })
+    .catch((error) => {
+      console.log(`Failed to fetch from the cheapshark api with error message of: ${error}`);
+    });
 }
 
 // renderData function
 var renderData = (data) => {
   // empty out the list
-  // gameList.empty();
-
-  console.log(data);
+  gameList.empty();
 
   // define our game data array from the api
   var games = data.data.results;
@@ -112,14 +135,19 @@ var renderData = (data) => {
     });
 
     // append each created li onto the gameList
-    // gameList.append(li);
+    gameList.append(li);
   }
 }
 
 var renderDetails = (game) => {
-  console.log(game);
+  // console.log(game);
+  // empty the detail screen
+  detailScreen.empty();
   var name = game.data.name;
-  var description = game.data.description_raw;
+  var description = game.data.description_raw; // sometimes this value isn't there.
+  if (!description) {
+    description = "No description provided."
+  }
   var imageurl = game.data.background_image;
   var platforms = game.data.platforms; // an array of objects, the name will be under .name under the platform object, there is also a system requirements object within only the data for PC will be filled in, the rest will be empty objects.
   var platformsString = '';
@@ -156,39 +184,47 @@ var renderDetails = (game) => {
   var detailDisplay = $(`
   <div class = "card">
     <img src = "${imageurl}" />
-    <h2>${name}</h2>
+    <h2 class = "is-size-2 title">${name}</h2>
     <p>Description:</p>
     <p>${description}</p>
+    <br/>
     <p>Release Date:</p>
     <p>${releaseDate}</p>
+    <br/>
     <p>Platforms:</p>
     <p>${platformsString}</p>
+    <br/>
     <p>Genres:</p>
     <p>${genreString}</p>
+    <br/>
     <p>Developers:</p>
     <p>${developersString}</p>
+    <br/>
     <p>Publishers:</p>
     <p>${publishersString}</p>
+    <br/>
     <p>Metacritic:</p>
     <p>${score}</p>
+    <br/>
     <p>ESRB Rating:</p>
     <p>${rating}</p>
   </div>
   `);
 
-  console.log(imageurl);
-  console.log(name);
-  console.log(description);
-  console.log(releaseDate);
-  console.log(platformsString);
-  console.log(genreString);
-  console.log(developersString);
-  console.log(publishersString);
-  console.log(score);
-  console.log(rating);
+  // console.log(imageurl);
+  // console.log(name);
+  // console.log(description);
+  // console.log(releaseDate);
+  // console.log(platformsString);
+  // console.log(genreString);
+  // console.log(developersString);
+  // console.log(publishersString);
+  // console.log(score);
+  // console.log(rating);
 
   // append the detailDisplay to the details screen section
-  // detailScreen.append(detailDisplay);
+  detailScreen.append(detailDisplay);
+  getPrices(name);
 }
 
 var renderYoutube = (data) => {
@@ -205,10 +241,56 @@ var renderYoutube = (data) => {
   }
 }
 
-var renderPricing = (data) => {
-  console.log(data);
+var renderPricing = (data, name) => {
+  priceContainer.empty();
+  var available = data.data;
+  for (var i = 0; i < available.length; i++) {
+    if (name === available[i].external) {
+      var cheapest = available[i].cheapest;
+      var sharkid = available[i].gameID;
+    }
+  }
+  if (!cheapest) {
+    var priceNode = $(`<p>Unfortunately, there are no deals available for this game.</p>`)
+  } else {
+    var priceNode = $(`
+    <div>
+    <h2 class = "is-size-2 title">${name} has deals available!</h2>
+    <h3 class = "is-size-3 title">We have deals as low as $${cheapest}!</h3>
+    </div>
+    `);
+    var button = $(`<button>Show Me the Deals!</button>`);
+    button.on('click', () => {
+      getDeals(sharkid);
+    });
+    priceNode.append(button);
+  }
+
+  priceContainer.append(priceNode);
 }
 
+var renderDeals = (data) => {
+  console.log(data);
+  var deals = data.deals;
+  var dealsList = $('<ul>');
+  for (var i = 0; i < deals; i++) {
+    var price = deals[i].price;
+    var store = stores[deals[i].storeID];
+    var dealUrl = `https://www.cheapshark.com/redirect?dealID=${deals[i].dealID}`;
+    var li = $(`<li><a></a></li>`);
+  }
+}
+
+// populates my stores array with values pulled from the api, the index of the array will correspond to the store ID from the api
+var populateStores = (data) => {
+  var storelist = data.data;
+  for (var i = 0; i < storelist.length; i++) {
+    var storename = storelist[i].storeName;
+    stores.push(storename);
+  }
+}
+
+// Function to quickly get data from the api array
 var getNames = (array) => {
   var resultString = '';
   for (var i = 0; i < array.length; i++) {
@@ -221,7 +303,6 @@ var getNames = (array) => {
   return resultString;
 }
 
-getGames('skyrim', 'search', 'adventure,rpg');
-getDetails(5679);
-// getYoutube('coding');
-getPrices('The Elder Scrolls V: Skyrim');
+getGames('skyrim', 'search');
+init();
+// https://www.cheapshark.com/redirect?dealID=0cB8snrNQRgQ7dFFOent0o0l3sC5EUy4D0uQEazVZtA%3D
