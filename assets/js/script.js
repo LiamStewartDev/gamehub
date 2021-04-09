@@ -55,6 +55,9 @@ var getGenres = (string) => {
 // We know for a fact that we'll need to make at least 1 API call
 // function to fetch list of games from api
 var getGames = (query, type, genre) => {
+  gameList.empty();
+  var mprogress = new Mprogress('start');
+  gameList.append('<p>Fetching Data, please wait</p>');
   var param = getType(query, type);
   if (genres) {
     var genres = getGenres(genre);
@@ -65,6 +68,7 @@ var getGames = (query, type, genre) => {
   axios.get(apiurl)
     .then((response) => {
       renderData(response);
+      mprogress.end();
     })
     .catch((error) => {
       console.log(`Failed to fetch from the RAWG api with error message of: ${error}`);
@@ -73,10 +77,17 @@ var getGames = (query, type, genre) => {
 
 // function to fetch game details based on id
 var getDetails = (id) => {
+  detailScreen.empty();
+  priceContainer.empty();
+  dealsList.empty();
+  var mprogress = new Mprogress('start');
+  detailScreen.append('<p>Fetching Data, please wait</p>');
+  priceContainer.append('<p>Fetching Data, please wait</p>');
   var apiurl = `https://api.rawg.io/api/games/${id}?key=${rawgKey}`;
   axios.get(apiurl)
     .then((response) => {
       renderDetails(response);
+      mprogress.end();
     })
     .catch((error) => {
       console.log(`Failed to fetch from the RAWG api with error message of: ${error}`);
@@ -234,7 +245,7 @@ var renderDetails = (game) => {
   // append the detailDisplay to the details screen section
   detailScreen.append(detailDisplay);
   getPrices(name);
-  getYoutube(name);
+  // getYoutube(name);
 }
 
 var renderYoutube = (data) => {

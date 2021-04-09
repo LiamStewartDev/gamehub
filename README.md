@@ -5,6 +5,7 @@ This is the first major collaborative project assigned by the program. In this a
 It contains notable features such as:
 - A searchbar with a connected selector bar and check boxes all used to form the search query
 - Input validation, an empty search bar after submitting will cause the placeholder text within to give the message: "PLEASE ENTER A SEARCH QUERY"
+- A small loading bar that appears at the top of the page upon entering a query.
 - A rendered list of games based on the form data given by the user on a new page after pressing the submit button
 - Clickable list items for the rendered game list
 - Renders game details, prices, and a provided youtube video about each list item upon clicking them
@@ -28,6 +29,7 @@ Using the following Frameworks and Libraries:
 - [Axios](https://github.com/axios/axios) Promise based HTTP client for the browser and node.js
 - [Moment.js](https://momentjs.com/docs/) Javascript library that formats time and dates
 - [jQuery](https://api.jquery.com/) Javascript library for shortcut functions and easier manipulation of the DOM
+- [Mprogress.js](https://github.com/lightningtgc/MProgress.js) Javascript library that renders a loading bar
 
 ## Deployed Link
 
