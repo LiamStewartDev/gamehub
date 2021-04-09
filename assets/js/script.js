@@ -245,7 +245,7 @@ var renderDetails = (game) => {
   // append the detailDisplay to the details screen section
   detailScreen.append(detailDisplay);
   getPrices(name);
-  // getYoutube(name);
+  getYoutube(name);
 }
 
 var renderYoutube = (data) => {
