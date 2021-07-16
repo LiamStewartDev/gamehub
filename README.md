@@ -40,8 +40,8 @@ AcedYu
 - [Link to Github](https://github.com/AcedYu)
 - [Link to LinkedIn](https://www.linkedin.com/in/alex-yu-3712811b9/)
 
-LiamStewart8
-- [Link to Github](https://github.com/LiamStewart8)
+LiamStewartDev
+- [Link to Github](https://github.com/LiamStewartDev)
 - [Link to LinkedIn](https://www.linkedin.com/in/liamsctewart/)
 
 TMPeeler
